@@ -105,3 +105,5 @@ venv.bak/
 
 # Visual Studio Code files
 .vscode
+# Images made using makeimages.py
+dataset/ims
