@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def make_images():
+def makeimages():
     cur_path = os.getcwd()
     data_filepath = os.path.join(cur_path, os.path.dirname("dataset/"), "semeion.data")
     print("data_filepath: " + data_filepath)
@@ -17,18 +17,19 @@ def make_images():
             os.makedirs(im_path)
 
         with open(data_filepath) as f:
-            for i, line in enumerate(f):      
-                # Read the line, then strip the new line and space at the end
-                line = f.readline().strip(" \n").split(" ")
+            for i, line in enumerate(f):
+                print(f"line: {i}")
+                # strip the new line and space at the end of the read line
+                l = line.strip(" \n").split(" ")
                 # Put the relevent part into the img
-                img = np.array(line[:-10], dtype=np.float).reshape((16,16))
+                img = np.array(l[:-10], dtype=np.float).reshape((16,16))
                 # Get the category
-                category = line[-10:]
+                category = l[-10:]
 
                 # since we know that there is only one '1' in the array,
                 # the index of the '1' in the array is our written digit
                 prefix = category.index('1')
-                plt.imsave(os.path.join(im_path, f"{prefix}_{i%10}.png"), img, cmap='binary')
+                plt.imsave(os.path.join(im_path, f"{prefix}_{i}.png"), img, cmap='binary')
 
     else:
         print("ERROR: unable to find semeion.data at path " + data_filepath)
@@ -36,4 +37,4 @@ def make_images():
         raise FileNotFoundError("semion.data not found")
 
 if __name__ == "__main__":
-    make_images()
+    makeimages()
